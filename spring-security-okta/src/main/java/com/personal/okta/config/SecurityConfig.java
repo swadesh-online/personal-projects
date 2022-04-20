@@ -7,24 +7,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
-
-
-	    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-	    @Override
-	    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-	        auth.inMemoryAuthentication()
-	                .passwordEncoder(passwordEncoder())
-	                .withUser("swadesh")
-	                .password(passwordEncoder().encode("secret"))
-	                .roles("USER");
-	    }
-
-	    @Bean
-	    public PasswordEncoder passwordEncoder() {
-	        return passwordEncoder;
-	    }
-	}
+/*@EnableWebSecurity*/
+public class SecurityConfig 
+//extends WebSecurityConfigurerAdapter
+{
+	/*
+	 * for basic in memory authentication
+	 * 
+	 * 
+	 * private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	 * 
+	 * @Override protected void configure(AuthenticationManagerBuilder auth) throws
+	 * Exception { auth.inMemoryAuthentication() .passwordEncoder(passwordEncoder())
+	 * .withUser("swadesh") .password(passwordEncoder().encode("secret"))
+	 * .roles("USER"); }
+	 * 
+	 * @Bean public PasswordEncoder passwordEncoder() { return passwordEncoder; }
+	 */}
 

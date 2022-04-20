@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,14 +20,17 @@ public class HomeController {
     private Map<String, LocalDateTime> usersLastAccess = new HashMap<>();
 	
 	@GetMapping("/")
-	public String getCurrentUser(@AuthenticationPrincipal User user, Model model) {
-        String username = user.getUsername();
-        
-        model.addAttribute("username", username);
-        model.addAttribute("lastAccess", usersLastAccess.get(username));
+	public String getCurrentUser(@AuthenticationPrincipal OidcUser user, Model model) {
+	    String email = user.getEmail();
 
-        usersLastAccess.put(username, LocalDateTime.now());
+	    model.addAttribute("email", email);
+	    model.addAttribute("lastAccess", usersLastAccess.get(email));
+	    model.addAttribute("firstName", user.getGivenName());
+	    model.addAttribute("lastName", user.getFamilyName());
 
-        return "home";
-    }
+	    usersLastAccess.put(email, LocalDateTime.now());
+
+	    return "home";
+
+	}
 }
