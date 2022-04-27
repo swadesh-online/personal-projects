@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.personal.okta.model.UserDetail;
 
-
-
 @RestController
 public class HomeController {
-	
+
 	@GetMapping("/")
-	public UserDetail getCurrentUser(@AuthenticationPrincipal OidcUser user, Model model) {
-		
-		UserDetail userDetail = new UserDetail();
-		userDetail.setEmail(user.getEmail());
-		userDetail.setFirstName(user.getGivenName());
-		userDetail.setLastName(user.getFamilyName());
-		userDetail.setLastAccessed(LocalDateTime.now().toString());
-		
-	    return userDetail;
+	public String getCurrentUser(@AuthenticationPrincipal OidcUser user, Model model) {
+
+	   UserDetail userDetail = new UserDetail();
+	   userDetail.setEmail(user.getEmail());
+	   userDetail.setFirstName(user.getGivenName());
+	   userDetail.setLastName(user.getFamilyName());
+	   userDetail.setLastAccessed(LocalDateTime.now().toString());
+
+		String userStr = "Welcome " + userDetail.getFirstName() + " ! <br>" + "Email : " + userDetail.getEmail()
+				+ " <br>" + "Last Accessed : " + userDetail.getLastAccessed();
+
+	return userStr;
 
 	}
 }
