@@ -1,14 +1,13 @@
-package com.intro.rest;
+package com.hibernate.practice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootRestIntroApplication {
+public class SpringbootHibernateRelationshipsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootRestIntroApplication.class, args);
+		SpringApplication.run(SpringbootHibernateRelationshipsApplication.class, args);
 	}
 
 }
-
