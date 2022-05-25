@@ -4,8 +4,12 @@ h2 {
 
 .container {
   width: 50%;
+
 }
 
 button {
   margin-top : 1rem;
+  margin-left : 1rem;
 }
+
+

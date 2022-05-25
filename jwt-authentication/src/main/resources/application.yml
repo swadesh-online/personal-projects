@@ -1,0 +1,15 @@
+jwt:
+  secret: mindfire
+server:
+  port: 9900
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: mindfire
+    url: jdbc:mysql://localhost:3306/onboarddb
+    username: onboard
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.personal.jwt.model.User;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -23,7 +25,7 @@ public class JwtTokenUtil {
 	
 	//get user-name from token 
 	public String getUsernameFromToken(String token) {
-		
+	
 		return getClaimFromToken(token, Claims::getSubject);
 	}
 	
@@ -51,10 +53,10 @@ public class JwtTokenUtil {
 		}
 		
 		//generate token for user
-		public String generateToken(UserDetails userDetails) {
+		public String generateToken(User userDetails) {
 			Map<String, Object> claims = new HashMap<>();
 			
-			return doGenerateToken(claims, userDetails.getUsername());
+			return doGenerateToken(claims, userDetails.getEmailId());
 		}
 		
 		//while creating the token -
@@ -74,9 +76,9 @@ public class JwtTokenUtil {
 		
 		
 		//validate token
-		public Boolean validateToken(String token, UserDetails userDetails) {
+		public Boolean validateToken(String token, User userDetails) {
 			final String username = getUsernameFromToken(token);
 			
-			return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+			return (username.equals(userDetails.getEmailId()) && !isTokenExpired(token));
 		}
 }

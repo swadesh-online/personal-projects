@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../shared/auth.service';
 
 @Component({
@@ -9,23 +10,38 @@ import { AuthService } from '../../shared/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  message : string | undefined;
+  loggedInUser!: string;
   constructor(private authService : AuthService,
-    private router : Router) { }
+    private router : Router,
+    private toasterService : ToastrService) { }
 
   ngOnInit(): void {
-  this.message = '';
+
+  this.loggedInUser = '';
   }
 
 
 getMessage() : void {
 
   this.authService.getMessage().subscribe(resp=>{
-    console.log(resp);
-    this.message = resp;
+
+
+    this.toasterService.success(resp);
   });
 
 }
+
+getUser() : void {
+
+  this.authService.getLoggedInUser().subscribe(resp=>{
+
+      this.loggedInUser = JSON.stringify(resp);
+
+      console.log("logged in user", this.loggedInUser)
+  })
+}
+
+
 
   logout(){
 

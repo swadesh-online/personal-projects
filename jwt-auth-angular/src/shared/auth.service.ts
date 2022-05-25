@@ -47,4 +47,16 @@ export class AuthService {
     sessionStorage.removeItem('token');
     this.router.navigateByUrl('/login');
   }
+
+
+  getLoggedInUser() : Observable<any> {
+
+    return this.httpClient.get<User>(this.authUrl.concat('/user/loggedIn'))
+    }
+
+
+    createUser(user : any): Observable<any>{
+
+      return this.httpClient.post(this.authUrl+'/user/create', user);
+    }
 }

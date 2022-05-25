@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/shared/user';
 import { AuthService } from '../../shared/auth.service';
 
@@ -16,8 +17,11 @@ export class LoginComponent implements OnInit {
   user : User;
   constructor(private fb : FormBuilder,
     private authService : AuthService,
-    private router: Router) {
+    private toasterService : ToastrService,
+    private router: Router,) {
     this.user = new User('','');
+
+    sessionStorage.clear();
     }
 
   ngOnInit(): void {
@@ -34,11 +38,13 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user).subscribe(()=>{
 
      console.log("logged in");
+
+     this.toasterService.success('Logged in');
      this.router.navigateByUrl('/home');
 
     },(error)=>{
 
-      alert('wrong credentials');
+      this.toasterService.error('Wrong credentials');
     }
 
     )
@@ -51,4 +57,6 @@ export class LoginComponent implements OnInit {
     });
 
   }
+
+
 }

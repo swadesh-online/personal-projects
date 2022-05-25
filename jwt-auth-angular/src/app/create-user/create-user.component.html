@@ -1,0 +1,31 @@
+<h2>
+  Create User
+</h2>
+<div class="container">
+<form [formGroup]="createUserForm" >
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input  formControlName="emailId" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password"  formControlName="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Role</label>
+      </div>
+      <select class="custom-select" formControlName="role" id="inputGroupSelect01">
+        <option value="CANDIDATE">CANDIDATE</option>
+        <option value="HR">HR</option>
+        <option value="ADMIN">ADMIN</option>
+      </select>
+    </div>
+  </div>
+
+  <button type="submit" (click)="submit()" class="btn btn-primary">Submit</button>
+  <button type="submit" routerLink='/login' class="btn btn-primary">Login</button>
+
+</form>
+</div>
