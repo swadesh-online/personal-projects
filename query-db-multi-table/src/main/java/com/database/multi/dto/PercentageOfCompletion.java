@@ -1,6 +1,4 @@
-package com.personal.jwt.model;
-
-import java.util.Date;
+package com.database.multi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtResponse {
+public class PercentageOfCompletion {
 	
-	private String jwtToken;
+	private int education;
 	
-	private Date expiresAt;
+	private int address;
 
 }
