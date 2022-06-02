@@ -8,17 +8,19 @@ import {
 import { catchError, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private router : Router,
-    private authService : AuthService) {}
+    private authService : AuthService ,
+    private cookieService : CookieService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     console.log('intercepting')
-    const token = sessionStorage.getItem('token');
+    const token = this.cookieService.get('token');
     if (token) {
       const cloned = request.clone({
           headers: request.headers.set("Authorization",
@@ -28,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
       return next.handle(cloned).pipe(
         catchError((error) => {
-          if(error.status == 401){
+          if(error.status == '401'){
             this.authService.logOut();
             this.router.navigateByUrl('/login');
           }

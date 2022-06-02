@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
   this.user = this.form.value;
     this.authService.login(this.user).subscribe(()=>{
 
+
      console.log("logged in");
 
      this.toasterService.success('Logged in');

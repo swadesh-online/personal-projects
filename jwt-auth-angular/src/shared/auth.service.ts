@@ -3,13 +3,15 @@ import { map, Observable } from 'rxjs';
 import { User } from 'src/shared/user';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-    constructor(private httpClient : HttpClient, private router : Router){
+
+    constructor(private httpClient : HttpClient, private router : Router , private cookieService : CookieService){
 
     }
 
@@ -19,9 +21,15 @@ export class AuthService {
 
     return this.httpClient.post<any>(this.authUrl+"/authenticate", user).pipe(map(
       userData => {
-       sessionStorage.setItem('username',user.username);
+       this.cookieService.set('username',user.username ,{
+        path: '/',
+        sameSite: 'Strict'
+     });
        let tokenStr= userData.jwtToken;
-       sessionStorage.setItem('token', tokenStr);
+       this.cookieService.set('token', tokenStr ,{
+        path: '/',
+        sameSite: 'Strict'
+     });
        return userData;
       }
     )
@@ -32,9 +40,9 @@ export class AuthService {
 
 
    getAuthStatus(){
-    let user = sessionStorage.getItem('username')
+    let user =  this.cookieService.get('username')
 
-    return !(user === null)
+    return !(user === null || user === '')
    }
 
    getMessage() : Observable<string>{
@@ -43,8 +51,7 @@ export class AuthService {
    }
 
   public logOut() {
-    sessionStorage.removeItem('username');
-    sessionStorage.removeItem('token');
+    this.cookieService.deleteAll();
     this.router.navigateByUrl('/login');
   }
 

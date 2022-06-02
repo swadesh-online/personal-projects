@@ -1,0 +1,9 @@
+<form>
+  <input type="date" [(ngModel)]="date"  name="dateOfCreation">
+  {{date | json}}
+
+<hr>
+{{time | date:'dd/MM/YYYY HH:mm a'}}
+
+<button (click)="checkDate()">CheckDateTime</button>
+</form>
